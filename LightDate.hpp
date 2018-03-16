@@ -86,16 +86,7 @@ inline bool operator>=(const Date& lhs, const Date& rhs)
 Date Date::operator++(int)
 {
   Date orig(*this);
-  if (validDate(year, month, day + 1)) { day++; }
-  else if (validDate(year, static_cast<Month>(month + 1), 1)) {
-    day = 1;
-    month = static_cast<Month>(month + 1);
-  }
-  else if (validDate(year + 1, Month::jan, 1)) {
-    day = 1;
-    month = Month::jan;
-    year++;
-  }
+  operator++();
   return orig;
 }
 
