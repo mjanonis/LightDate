@@ -71,8 +71,8 @@ inline int operator-(const Date& lhs, const Date& rhs)
 Date::operator tm() const
 {
   tm conv;
-  conv.tm_year = year;
-  conv.tm_mon = month;
+  conv.tm_year = year - 1900;
+  conv.tm_mon = month - 1;
   conv.tm_mday = day;
 
   conv.tm_sec = 0;
