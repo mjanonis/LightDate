@@ -58,16 +58,18 @@ private:
   inline bool leapYear(int y);
 };
 
-//returns the days between two dates
-inline int operator-(const Date& lhs, const Date& rhs){
+// returns the days between two dates
+inline int operator-(const Date& lhs, const Date& rhs)
+{
   tm tm_date_lhs = tm(lhs);
   tm tm_date_rhs = tm(rhs);
   auto date_lhs = mktime(&tm_date_lhs);
   auto date_rhs = mktime(&tm_date_rhs);
-  return std::abs(date_lhs - date_rhs)/86400;
+  return std::abs(date_lhs - date_rhs) / 86400;
 }
 
-Date::operator tm() const{
+Date::operator tm() const
+{
   tm conv;
   conv.tm_year = year;
   conv.tm_mon = month;
