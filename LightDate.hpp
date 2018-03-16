@@ -42,9 +42,9 @@ public:
   inline Month getMonth() const { return month; }
   inline int getDay() const { return day; }
 
-  inline void setYear(int);
-  inline void setMonth(Month);
-  inline void setDay(int);
+  inline void setYear(int y);
+  inline void setMonth(Month m);
+  inline void setDay(int d);
 
   inline Date operator++(int);
   inline Date& operator++();
