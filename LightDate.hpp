@@ -1,3 +1,10 @@
+#ifndef LIGHTDATE_HPP
+#define LIGHTDATE_HPP
+
+#ifdef _MSC_VER
+#pragma once
+#endif
+
 #include <chrono>
 #include <iomanip>
 #include <iostream>
@@ -18,9 +25,9 @@ public:
       throw std::runtime_error("Invalid date");
     }
   }
-  Date(std::chrono::time_point<std::chrono::_V2::system_clock,
-                               std::chrono::nanoseconds>
-           n)
+  explicit Date(std::chrono::time_point<std::chrono::_V2::system_clock,
+                                        std::chrono::nanoseconds>
+                    n)
   {
     auto now = std::chrono::system_clock::to_time_t(n);
     tm utc_tm = *localtime(&now);
@@ -37,7 +44,7 @@ public:
   void setMonth(Month m) { month = m; }
   void setDay(int d) { day = d; }
 
-  Date operator++(int);
+  const Date operator++(int);
   Date& operator++();
 
 private:
@@ -49,7 +56,7 @@ private:
   bool leapYear(int y);
 };
 
-Date Date::operator++(int)
+const Date Date::operator++(int)
 {
   Date orig(*this);
   if (validDate(year, month, day + 1)) { day++; }
@@ -88,8 +95,7 @@ std::ostream& operator<<(std::ostream& os, Date& dd)
 
 bool Date::leapYear(int y)
 {
-  if ((y % 4 == 0 && y % 100 != 0) || y % 400 == 0) { return true; }
-  return false;
+  return (y % 4 == 0 && y % 100 != 0) || y % 400 == 0;
 }
 
 bool Date::validDate(int y, Month m, int d)
@@ -101,16 +107,14 @@ bool Date::validDate(int y, Month m, int d)
          m == Month::dec)) {
       return true;
     }
-    else if ((d >= 1 && d <= 30) && (m == Month::apr || m == Month::jun ||
-                                     m == Month::sep || m == Month::nov)) {
+    if ((d >= 1 && d <= 30) && (m == Month::apr || m == Month::jun ||
+                                m == Month::sep || m == Month::nov)) {
       return true;
     }
-    else if (d >= 1 && d <= 28 && m == Month::feb) {
-      return true;
-    }
-    else if (leapYear(y) && m == Month::feb && d == 29) {
-      return true;
-    }
+    if (d >= 1 && d <= 28 && m == Month::feb) { return true; }
+    if (leapYear(y) && m == Month::feb && d == 29) { return true; }
   }
   return false;
 }
+
+#endif
