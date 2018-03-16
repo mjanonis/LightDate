@@ -36,9 +36,9 @@ public:
     day = utc_tm.tm_mday;
   }
 
-  inline int getYear() { return year; }
-  inline Month getMonth() { return month; }
-  inline int getDay() { return day; }
+  inline int getYear() const { return year; }
+  inline Month getMonth() const {return month; }
+  inline int getDay() const { return day; }
 
   inline void setYear(int y) { year = y; }
   inline void setMonth(Month m) { month = m; }
@@ -87,7 +87,7 @@ Date& Date::operator++()
   return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, Date& dd)
+std::ostream& operator<<(std::ostream& os, const Date& dd)
 {
   return os << std::setfill('0') << dd.getYear() << "-" << std::setw(2)
             << dd.getMonth() << "-" << std::setw(2) << dd.getDay();
