@@ -44,7 +44,7 @@ public:
   inline void setMonth(Month m) { month = m; }
   inline void setDay(int d) { day = d; }
 
-  inline const Date operator++(int);
+  inline Date operator++(int);
   inline Date& operator++();
 
 private:
@@ -56,7 +56,7 @@ private:
   inline bool leapYear(int y);
 };
 
-const Date Date::operator++(int)
+Date Date::operator++(int)
 {
   Date orig(*this);
   if (validDate(year, month, day + 1)) { day++; }
