@@ -13,3 +13,8 @@ Date error {1990,Month::feb,30};
 ```
 Throws a runtime_error
 
+```
+Date a {2018,Month::jan,1};
+Date b {2018,Month::jan,3};
+```
+a - b == 2
