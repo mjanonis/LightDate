@@ -36,24 +36,24 @@ public:
     day = utc_tm.tm_mday;
   }
 
-  int getYear() { return year; }
-  Month getMonth() { return month; }
-  int getDay() { return day; }
+  inline int getYear() { return year; }
+  inline Month getMonth() { return month; }
+  inline int getDay() { return day; }
 
-  void setYear(int y) { year = y; }
-  void setMonth(Month m) { month = m; }
-  void setDay(int d) { day = d; }
+  inline void setYear(int y) { year = y; }
+  inline void setMonth(Month m) { month = m; }
+  inline void setDay(int d) { day = d; }
 
-  const Date operator++(int);
-  Date& operator++();
+  inline const Date operator++(int);
+  inline Date& operator++();
 
 private:
   int year;
   Month month;
   int day;
 
-  bool validDate(int y, Month m, int d);
-  bool leapYear(int y);
+  inline bool validDate(int y, Month m, int d);
+  inline bool leapYear(int y);
 };
 
 const Date Date::operator++(int)
