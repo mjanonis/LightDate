@@ -1,7 +1,7 @@
 # LightDate
 Simple and basic header only C++ date library
 
-##Usage
+## Usage
 
 Date a {1990,Month::feb,22}; makes a date 1990-02-22
 
