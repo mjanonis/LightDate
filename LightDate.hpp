@@ -36,6 +36,8 @@ public:
     day = utc_tm.tm_mday;
   }
 
+  inline explicit operator tm() const;
+
   inline int getYear() const { return year; }
   inline Month getMonth() const { return month; }
   inline int getDay() const { return day; }
@@ -55,6 +57,27 @@ private:
   inline bool validDate(int y, Month m, int d);
   inline bool leapYear(int y);
 };
+
+//returns the days between two dates
+inline int operator-(const Date& lhs, const Date& rhs){
+  tm tm_date_lhs = tm(lhs);
+  tm tm_date_rhs = tm(rhs);
+  auto date_lhs = mktime(&tm_date_lhs);
+  auto date_rhs = mktime(&tm_date_rhs);
+  return std::abs(date_lhs - date_rhs)/86400;
+}
+
+Date::operator tm() const{
+  tm conv;
+  conv.tm_year = year;
+  conv.tm_mon = month;
+  conv.tm_mday = day;
+
+  conv.tm_sec = 0;
+  conv.tm_min = 0;
+  conv.tm_hour = 0;
+  return conv;
+}
 
 inline bool operator==(const Date& lhs, const Date& rhs)
 {
