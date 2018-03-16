@@ -160,19 +160,28 @@ bool Date::validDate(int y, Month m, int d)
   return false;
 }
 
-void Date::setYear(int y){
-  if(validDate(y,month,day)){year = y;}
-  else{throw std::runtime_error("Invalid year set");}
+void Date::setYear(int y)
+{
+  if (validDate(y, month, day)) { year = y; }
+  else {
+    throw std::runtime_error("Invalid year set");
+  }
 }
 
-void Date::setMonth(Month m){
-  if(validDate(year,m,day)){month = m;}
-  else{throw std::runtime_error("Invalid month set");}
+void Date::setMonth(Month m)
+{
+  if (validDate(year, m, day)) { month = m; }
+  else {
+    throw std::runtime_error("Invalid month set");
+  }
 }
 
-void Date::setDay(int d){
-  if(validDate(year,month,d)){day = d;}
-  else{throw std::runtime_error("Invalid day set");}
+void Date::setDay(int d)
+{
+  if (validDate(year, month, d)) { day = d; }
+  else {
+    throw std::runtime_error("Invalid day set");
+  }
 }
 
 #endif
