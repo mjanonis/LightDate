@@ -1,2 +1,2 @@
 # LightDate
-Simple and basic date library
+Simple and basic header only C++ date library
