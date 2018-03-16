@@ -37,7 +37,7 @@ public:
   }
 
   inline int getYear() const { return year; }
-  inline Month getMonth() const {return month; }
+  inline Month getMonth() const { return month; }
   inline int getDay() const { return day; }
 
   inline void setYear(int y) { year = y; }
@@ -55,6 +55,33 @@ private:
   inline bool validDate(int y, Month m, int d);
   inline bool leapYear(int y);
 };
+
+inline bool operator==(const Date& lhs, const Date& rhs)
+{
+  return (lhs.getYear() == rhs.getYear() && lhs.getMonth() == rhs.getMonth() &&
+          lhs.getDay() == rhs.getDay());
+}
+inline bool operator!=(const Date& lhs, const Date& rhs)
+{
+  return !operator==(lhs, rhs);
+}
+inline bool operator<(const Date& lhs, const Date& rhs)
+{
+  return (lhs.getYear() < rhs.getYear() || lhs.getMonth() < rhs.getMonth() ||
+          lhs.getDay() < rhs.getDay());
+}
+inline bool operator>(const Date& lhs, const Date& rhs)
+{
+  return operator<(rhs, lhs);
+}
+inline bool operator<=(const Date& lhs, const Date& rhs)
+{
+  return !operator>(lhs, rhs);
+}
+inline bool operator>=(const Date& lhs, const Date& rhs)
+{
+  return !operator<(lhs, rhs);
+}
 
 Date Date::operator++(int)
 {
