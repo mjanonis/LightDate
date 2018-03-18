@@ -37,7 +37,8 @@ public:
     day = utc_tm.tm_mday;
   }
 
-  explicit Date(tm t){
+  explicit Date(tm t)
+  {
     year = t.tm_year + 1900;
     month = static_cast<Month>(t.tm_mon + 1);
     day = t.tm_mday;
@@ -67,16 +68,18 @@ private:
   inline bool leapYear(int y);
 };
 
-Date& Date::operator-=(const int& rhs){
+Date& Date::operator-=(const int& rhs)
+{
   auto tm_date_lhs = tm(*this);
   auto date_lhs = mktime(&tm_date_lhs);
-  date_lhs -= rhs*86400;
+  date_lhs -= rhs * 86400;
   tm_date_lhs = *localtime(&date_lhs);
   *this = Date(tm_date_lhs);
   return *this;
 }
 
-inline Date operator-(Date lhs, const int& rhs){
+inline Date operator-(Date lhs, const int& rhs)
+{
   lhs -= rhs;
   return lhs;
 }
