@@ -9,8 +9,6 @@
 #include <iomanip>
 #include <stdexcept>
 
-// TODO: add operator-=, operator+, operator +=
-
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 
 class Date {
@@ -58,6 +56,7 @@ public:
   inline Date& operator++();
 
   inline Date& operator-=(const int& rhs);
+  inline Date& operator+=(const int& rhs);
 
 private:
   int year;
@@ -67,6 +66,22 @@ private:
   inline bool validDate(int y, Month m, int d);
   inline bool leapYear(int y);
 };
+
+Date& Date::operator+=(const int& rhs)
+{
+  auto tm_date_lhs = tm(*this);
+  auto date_lhs = mktime(&tm_date_lhs);
+  date_lhs += rhs * 86400;
+  tm_date_lhs = *localtime(&date_lhs);
+  *this = Date(tm_date_lhs);
+  return *this;
+}
+
+inline Date operator+(Date lhs, const int& rhs)
+{
+  lhs += rhs;
+  return lhs;
+}
 
 Date& Date::operator-=(const int& rhs)
 {
