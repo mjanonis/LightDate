@@ -7,7 +7,6 @@
 
 #include <chrono>
 #include <iomanip>
-#include <iostream>
 #include <stdexcept>
 
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
@@ -61,8 +60,8 @@ private:
 // returns the days between two dates
 inline int operator-(const Date& lhs, const Date& rhs)
 {
-  tm tm_date_lhs = tm(lhs);
-  tm tm_date_rhs = tm(rhs);
+  auto tm_date_lhs = tm(lhs);
+  auto tm_date_rhs = tm(rhs);
   auto date_lhs = mktime(&tm_date_lhs);
   auto date_rhs = mktime(&tm_date_rhs);
   return std::abs(date_lhs - date_rhs) / 86400;
@@ -70,7 +69,7 @@ inline int operator-(const Date& lhs, const Date& rhs)
 
 Date::operator tm() const
 {
-  tm conv;
+  tm conv {};
   conv.tm_year = year - 1900;
   conv.tm_mon = month - 1;
   conv.tm_mday = day;
