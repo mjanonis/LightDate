@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <stdexcept>
 
+// TODO: add operator-=, operator+, operator +=
+
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 
 class Date {
@@ -69,7 +71,7 @@ inline int operator-(const Date& lhs, const Date& rhs)
 
 Date::operator tm() const
 {
-  tm conv {};
+  tm conv{};
   conv.tm_year = year - 1900;
   conv.tm_mon = month - 1;
   conv.tm_mday = day;
