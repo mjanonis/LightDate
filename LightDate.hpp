@@ -151,13 +151,15 @@ inline bool operator>=(const Date& lhs, const Date& rhs)
   return !operator<(lhs, rhs);
 }
 
-Date Date::operator--(int){
+Date Date::operator--(int)
+{
   Date orig(*this);
   operator--();
   return orig;
 }
 
-Date& Date::operator--(){
+Date& Date::operator--()
+{
   *this -= 1;
   return *this;
 }
