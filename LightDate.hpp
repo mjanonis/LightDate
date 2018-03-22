@@ -44,9 +44,9 @@ public:
 
   inline explicit operator tm() const;
 
-  inline int getYear() const noexcept{ return year; }
-  inline Month getMonth() const noexcept{ return month; }
-  inline int getDay() const noexcept{ return day; }
+  inline int getYear() const noexcept { return year; }
+  inline Month getMonth() const noexcept { return month; }
+  inline int getDay() const noexcept { return day; }
 
   inline void setYear(int y);
   inline void setMonth(Month m);
