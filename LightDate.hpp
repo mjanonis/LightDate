@@ -55,6 +55,9 @@ public:
   inline Date operator++(int);
   inline Date& operator++();
 
+  inline Date operator--(int);
+  inline Date& operator--();
+
   inline Date& operator-=(const int& rhs);
   inline Date& operator+=(const int& rhs);
 
@@ -146,6 +149,17 @@ inline bool operator<=(const Date& lhs, const Date& rhs)
 inline bool operator>=(const Date& lhs, const Date& rhs)
 {
   return !operator<(lhs, rhs);
+}
+
+Date Date::operator--(int){
+  Date orig(*this);
+  operator--();
+  return orig;
+}
+
+Date& Date::operator--(){
+  *this -= 1;
+  return *this;
 }
 
 Date Date::operator++(int)
