@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <stdexcept>
 
+//TODO: Add weekday support
+
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 
 class Date {
@@ -24,9 +26,7 @@ public:
       throw std::runtime_error("Invalid date");
     }
   }
-  explicit Date(std::chrono::time_point<std::chrono::_V2::system_clock,
-                                        std::chrono::nanoseconds>
-                    n)
+  explicit Date(std::chrono::time_point<std::chrono::system_clock> n)
   {
     auto now = std::chrono::system_clock::to_time_t(n);
     tm utc_tm = *localtime(&now);
