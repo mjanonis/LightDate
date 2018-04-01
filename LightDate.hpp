@@ -9,9 +9,8 @@
 #include <iomanip>
 #include <stdexcept>
 
-//TODO: Add weekday support
-
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
+enum Weekday { mon = 1, tue, wed, thu, fri, sat, sun };
 
 class Date {
 public:
@@ -21,6 +20,7 @@ public:
       year = y;
       month = m;
       day = d;
+      wkday = calculateWeekday(y, m, d);
     }
     else {
       throw std::runtime_error("Invalid date");
@@ -33,6 +33,10 @@ public:
     year = utc_tm.tm_year + 1900;
     month = static_cast<Month>(utc_tm.tm_mon + 1);
     day = utc_tm.tm_mday;
+    if (utc_tm.tm_wday == 0) { wkday = Weekday::sun; }
+    else {
+      wkday = static_cast<Weekday>(utc_tm.tm_wday);
+    }
   }
 
   explicit Date(tm t)
@@ -40,6 +44,7 @@ public:
     year = t.tm_year + 1900;
     month = static_cast<Month>(t.tm_mon + 1);
     day = t.tm_mday;
+    wkday = static_cast<Weekday>(t.tm_wday + 1);
   }
 
   inline explicit operator tm() const;
@@ -47,6 +52,7 @@ public:
   inline int getYear() const noexcept { return year; }
   inline Month getMonth() const noexcept { return month; }
   inline int getDay() const noexcept { return day; }
+  inline Weekday getWeekday() const noexcept { return wkday; }
 
   inline void setYear(int y);
   inline void setMonth(Month m);
@@ -65,10 +71,23 @@ private:
   int year;
   Month month;
   int day;
+  Weekday wkday;
 
   inline bool validDate(int y, Month m, int d);
   inline bool leapYear(int y);
+  inline Weekday calculateWeekday(int y, Month m, int d);
 };
+
+Weekday Date::calculateWeekday(int y, Month m, int d)
+{
+  // calculate weekday using Michael Keith's and Tom Craver's expr
+  // and make it so Monday = 1 ... Sunday = 7
+  int wday = (d += m < 3 ? y-- : y - 2,
+              23 * m / 9 + d + 4 + y / 4 - y / 100 + y / 400) %
+             7;
+  if (wday == 0) { return Weekday::sun; }
+  return static_cast<Weekday>(wday);
+}
 
 Date& Date::operator+=(const int& rhs)
 {
@@ -117,6 +136,7 @@ Date::operator tm() const
   conv.tm_year = year - 1900;
   conv.tm_mon = month - 1;
   conv.tm_mday = day;
+  conv.tm_wday = wkday % 7;
 
   conv.tm_sec = 0;
   conv.tm_min = 0;
@@ -183,6 +203,7 @@ Date& Date::operator++()
     month = Month::jan;
     ++year;
   }
+  wkday = static_cast<Weekday>(wkday % 7 + 1);
   return *this;
 }
 
