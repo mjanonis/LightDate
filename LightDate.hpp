@@ -209,7 +209,7 @@ Date& Date::operator++()
 
 inline std::ostream& operator<<(std::ostream& os, const Date& dd)
 {
-  return os << std::setfill('0') << dd.getYear() << "-" << std::setw(2)
+  return os << std::setw(4) <<std::setfill('0') << dd.getYear() << "-" << std::setw(2)
             << dd.getMonth() << "-" << std::setw(2) << dd.getDay();
 }
 
