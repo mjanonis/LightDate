@@ -220,6 +220,7 @@ bool Date::leapYear(int y)
 
 bool Date::validDate(int y, Month m, int d)
 {
+  if (y < 0) { return false; }
   if (m >= Month::jan && m <= Month::dec) {
     if ((d >= 1 && d <= 31) &&
         (m == Month::jan || m == Month::mar || m == Month::may ||
