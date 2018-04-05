@@ -41,10 +41,16 @@ public:
 
   explicit Date(tm t)
   {
-    year = t.tm_year + 1900;
-    month = static_cast<Month>(t.tm_mon + 1);
-    day = t.tm_mday;
-    wkday = static_cast<Weekday>(t.tm_wday + 1);
+    if (validDate(t.tm_year + 1900, static_cast<Month>(t.tm_mon + 1),
+                  t.tm_mday)) {
+      year = t.tm_year + 1900;
+      month = static_cast<Month>(t.tm_mon + 1);
+      day = t.tm_mday;
+      wkday = static_cast<Weekday>(t.tm_wday + 1);
+    }
+    else {
+      throw std::runtime_error("tm date invalid");
+    }
   }
 
   inline explicit operator tm() const;
@@ -209,8 +215,9 @@ Date& Date::operator++()
 
 inline std::ostream& operator<<(std::ostream& os, const Date& dd)
 {
-  return os << std::setw(4) <<std::setfill('0') << dd.getYear() << "-" << std::setw(2)
-            << dd.getMonth() << "-" << std::setw(2) << dd.getDay();
+  return os << std::setw(4) << std::setfill('0') << dd.getYear() << "-"
+            << std::setw(2) << dd.getMonth() << "-" << std::setw(2)
+            << dd.getDay();
 }
 
 bool Date::leapYear(int y)
