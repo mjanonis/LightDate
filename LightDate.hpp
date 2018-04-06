@@ -46,7 +46,15 @@ public:
       year = t.tm_year + 1900;
       month = static_cast<Month>(t.tm_mon + 1);
       day = t.tm_mday;
-      wkday = static_cast<Weekday>(t.tm_wday + 1);
+      if (t.tm_wday >= 0 && t.tm_wday <= 6) {
+        if (t.tm_wday == 0) { wkday = Weekday::sun; }
+        else {
+          wkday = static_cast<Weekday>(t.tm_wday);
+        }
+      }
+      else {
+        wkday = calculateWeekday(year, month, day);
+      }
     }
     else {
       throw std::runtime_error("tm date invalid");
