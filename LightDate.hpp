@@ -9,6 +9,8 @@
 #include <iomanip>
 #include <stdexcept>
 
+// TODO: Add a private tm member to optimse operations
+
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 enum Weekday { mon = 1, tue, wed, thu, fri, sat, sun };
 
@@ -23,9 +25,9 @@ public:
       wkday = calculateWeekday(y, m, d);
     }
     else {
-      throw std::runtime_error("Invalid date constructed: " + std::to_string(y) +
-                               "-" + std::to_string(m) + "-" +
-                               std::to_string(d));
+      throw std::runtime_error(
+          "Invalid date constructed: " + std::to_string(y) + "-" +
+          std::to_string(m) + "-" + std::to_string(d));
     }
   }
   explicit Date(std::chrono::time_point<std::chrono::system_clock> n)
@@ -171,8 +173,11 @@ inline bool operator!=(const Date& lhs, const Date& rhs)
 }
 inline bool operator<(const Date& lhs, const Date& rhs)
 {
-  return (lhs.getYear() < rhs.getYear() || lhs.getMonth() < rhs.getMonth() ||
-          lhs.getDay() < rhs.getDay());
+  auto tm_date_lhs = tm(lhs);
+  auto tm_date_rhs = tm(rhs);
+  auto date_lhs = mktime(&tm_date_lhs);
+  auto date_rhs = mktime(&tm_date_rhs);
+  return (date_lhs<date_rhs);
 }
 inline bool operator>(const Date& lhs, const Date& rhs)
 {
