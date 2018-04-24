@@ -173,11 +173,7 @@ inline bool operator!=(const Date& lhs, const Date& rhs)
 }
 inline bool operator<(const Date& lhs, const Date& rhs)
 {
-  auto tm_date_lhs = tm(lhs);
-  auto tm_date_rhs = tm(rhs);
-  auto date_lhs = mktime(&tm_date_lhs);
-  auto date_rhs = mktime(&tm_date_rhs);
-  return (date_lhs<date_rhs);
+  return ((lhs - rhs) < 0);
 }
 inline bool operator>(const Date& lhs, const Date& rhs)
 {
