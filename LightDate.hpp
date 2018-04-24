@@ -145,7 +145,7 @@ inline int operator-(const Date& lhs, const Date& rhs)
   auto tm_date_rhs = tm(rhs);
   auto date_lhs = mktime(&tm_date_lhs);
   auto date_rhs = mktime(&tm_date_rhs);
-  return std::abs(date_lhs - date_rhs) / 86400;
+  return (date_lhs - date_rhs) / 86400;
 }
 
 Date::operator tm() const
