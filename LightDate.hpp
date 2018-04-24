@@ -23,7 +23,9 @@ public:
       wkday = calculateWeekday(y, m, d);
     }
     else {
-      throw std::runtime_error("Invalid date");
+      throw std::runtime_error("Invalid date constructed: " + std::to_string(y) +
+                               "-" + std::to_string(m) + "-" +
+                               std::to_string(d));
     }
   }
   explicit Date(std::chrono::time_point<std::chrono::system_clock> n)
