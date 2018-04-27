@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <stdexcept>
 
-// TODO: Add a private tm member to optimse operations
+// TODO: Reduce the amount of unnecessary memory allocations / deallocations
 
 enum Month { jan = 1, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec };
 enum Weekday { mon = 1, tue, wed, thu, fri, sat, sun };
