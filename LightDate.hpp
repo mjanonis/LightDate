@@ -67,10 +67,10 @@ public:
 
   inline explicit operator tm() const;
 
-  inline int getYear() const noexcept { return year; }
-  inline Month getMonth() const noexcept { return month; }
-  inline int getDay() const noexcept { return day; }
-  inline Weekday getWeekday() const noexcept { return wkday; }
+  constexpr inline int getYear() const noexcept { return year; }
+  constexpr inline Month getMonth() const noexcept { return month; }
+  constexpr inline int getDay() const noexcept { return day; }
+  constexpr inline Weekday getWeekday() const noexcept { return wkday; }
 
   inline void setYear(int y);
   inline void setMonth(Month m);
