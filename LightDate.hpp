@@ -69,6 +69,19 @@ class Date {
         }
     }
 
+    explicit Date(time_t t){
+        tm utc_tm = *localtime(&t);
+        year = utc_tm.tm_year + 1900;
+        month = static_cast<Month>(utc_tm.tm_mon + 1);
+        day = utc_tm.tm_mday;
+        if (utc_tm.tm_wday == 0) {
+            wkday = Weekday::sun;
+        }
+        else {
+            wkday = static_cast<Weekday>(utc_tm.tm_wday);
+        }
+    }
+
     inline explicit operator tm() const;
 
     constexpr inline int getYear() const noexcept { return year; }
