@@ -69,7 +69,8 @@ class Date {
         }
     }
 
-    explicit Date(time_t t){
+    explicit Date(time_t t)
+    {
         tm utc_tm = *localtime(&t);
         year = utc_tm.tm_year + 1900;
         month = static_cast<Month>(utc_tm.tm_mon + 1);
