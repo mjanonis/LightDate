@@ -103,6 +103,8 @@ class Date {
     inline Date& operator-=(const int& rhs);
     inline Date& operator+=(const int& rhs);
 
+    static inline Date today() { return Date(time(0)); }
+
   private:
     int year;
     Month month;
