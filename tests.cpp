@@ -171,6 +171,64 @@ TEST(PreIncrementTest, CorrectlyHandlesEndOfYearDates)
     ASSERT_EQ(test.getWeekday(), Weekday::mon);
 }
 
+// Compound asignment addition tests
+
+TEST(CompoundAssignmentAddition, Addition)
+{
+    Date test{2010, Month::jan, 1};
+    test += 10;
+    ASSERT_EQ(test.getYear(), 2010);
+    ASSERT_EQ(test.getMonth(), Month::jan);
+    ASSERT_EQ(test.getDay(), 11);
+}
+
+TEST(CompoundAssignmentAddition, AdditionRollOverMonth)
+{
+    Date test{2010, Month::jan, 31};
+    test += 10;
+    ASSERT_EQ(test.getYear(), 2010);
+    ASSERT_EQ(test.getMonth(), Month::feb);
+    ASSERT_EQ(test.getDay(), 10);
+}
+
+TEST(CompoundAssignmentAddition, AdditionRollOverYear)
+{
+    Date test{2010, Month::dec, 31};
+    test += 10;
+    ASSERT_EQ(test.getYear(), 2011);
+    ASSERT_EQ(test.getMonth(), Month::jan);
+    ASSERT_EQ(test.getDay(), 10);
+}
+
+// Compound asignment subtraction tests
+
+TEST(CompoundAssignmentSubtraction, Subtraction)
+{
+    Date test{2010, Month::jan, 11};
+    test -= 10;
+    ASSERT_EQ(test.getYear(), 2010);
+    ASSERT_EQ(test.getMonth(), Month::jan);
+    ASSERT_EQ(test.getDay(), 1);
+}
+
+TEST(CompoundAssignmentSubtraction, SubtractionRollOverMonth)
+{
+    Date test{2010, Month::feb, 1};
+    test -= 10;
+    ASSERT_EQ(test.getYear(), 2010);
+    ASSERT_EQ(test.getMonth(), Month::jan);
+    ASSERT_EQ(test.getDay(), 22);
+}
+
+TEST(CompoundAssignmentSubtraction, SubtractionRollOverYear)
+{
+    Date test{2010, Month::jan, 1};
+    test -= 10;
+    ASSERT_EQ(test.getYear(), 2009);
+    ASSERT_EQ(test.getMonth(), Month::dec);
+    ASSERT_EQ(test.getDay(), 22);
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
