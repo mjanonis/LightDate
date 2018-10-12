@@ -180,7 +180,7 @@ TEST(CompoundAssignmentAddition, Addition)
     ASSERT_EQ(test.getYear(), 2010);
     ASSERT_EQ(test.getMonth(), Month::jan);
     ASSERT_EQ(test.getDay(), 11);
-    ASSERT_EQ(test.getWeekday(),Weekday::mon);
+    ASSERT_EQ(test.getWeekday(), Weekday::mon);
 }
 
 TEST(CompoundAssignmentAddition, AdditionRollOverMonth)
@@ -190,7 +190,7 @@ TEST(CompoundAssignmentAddition, AdditionRollOverMonth)
     ASSERT_EQ(test.getYear(), 2010);
     ASSERT_EQ(test.getMonth(), Month::feb);
     ASSERT_EQ(test.getDay(), 10);
-    ASSERT_EQ(test.getWeekday(),Weekday::wed);
+    ASSERT_EQ(test.getWeekday(), Weekday::wed);
 }
 
 TEST(CompoundAssignmentAddition, AdditionRollOverYear)
@@ -200,7 +200,7 @@ TEST(CompoundAssignmentAddition, AdditionRollOverYear)
     ASSERT_EQ(test.getYear(), 2011);
     ASSERT_EQ(test.getMonth(), Month::jan);
     ASSERT_EQ(test.getDay(), 10);
-    ASSERT_EQ(test.getWeekday(),Weekday::mon);
+    ASSERT_EQ(test.getWeekday(), Weekday::mon);
 }
 
 // Compound asignment subtraction tests
@@ -212,7 +212,7 @@ TEST(CompoundAssignmentSubtraction, Subtraction)
     ASSERT_EQ(test.getYear(), 2010);
     ASSERT_EQ(test.getMonth(), Month::jan);
     ASSERT_EQ(test.getDay(), 1);
-    ASSERT_EQ(test.getWeekday(),Weekday::fri);
+    ASSERT_EQ(test.getWeekday(), Weekday::fri);
 }
 
 TEST(CompoundAssignmentSubtraction, SubtractionRollOverMonth)
@@ -222,7 +222,7 @@ TEST(CompoundAssignmentSubtraction, SubtractionRollOverMonth)
     ASSERT_EQ(test.getYear(), 2010);
     ASSERT_EQ(test.getMonth(), Month::jan);
     ASSERT_EQ(test.getDay(), 22);
-    ASSERT_EQ(test.getWeekday(),Weekday::fri);
+    ASSERT_EQ(test.getWeekday(), Weekday::fri);
 }
 
 TEST(CompoundAssignmentSubtraction, SubtractionRollOverYear)
@@ -232,55 +232,61 @@ TEST(CompoundAssignmentSubtraction, SubtractionRollOverYear)
     ASSERT_EQ(test.getYear(), 2009);
     ASSERT_EQ(test.getMonth(), Month::dec);
     ASSERT_EQ(test.getDay(), 22);
-    ASSERT_EQ(test.getWeekday(),Weekday::tue);
+    ASSERT_EQ(test.getWeekday(), Weekday::tue);
 }
 
 // Equality and inequality tests
 
-TEST(EqualityTest, Equal){
-    Date a {2010,Month::jan,10};
-    Date b {2010,Month::jan,10};
-    ASSERT_EQ(a==b,true);
+TEST(EqualityTest, Equal)
+{
+    Date a{2010, Month::jan, 10};
+    Date b{2010, Month::jan, 10};
+    ASSERT_EQ(a == b, true);
 }
 
-TEST(EqualityTest, NotEqual){
-    Date a {2010,Month::jan,10};
-    Date b {2020,Month::jan,10};
-    ASSERT_EQ(a!=b,true);
+TEST(EqualityTest, NotEqual)
+{
+    Date a{2010, Month::jan, 10};
+    Date b{2020, Month::jan, 10};
+    ASSERT_EQ(a != b, true);
 }
 
-TEST(EqualityTest, GreaterThan){
-    Date a {2030,Month::jan,10};
-    Date b {2020,Month::jun,22};
-    ASSERT_EQ(a>b,true);
+TEST(EqualityTest, GreaterThan)
+{
+    Date a{2030, Month::jan, 10};
+    Date b{2020, Month::jun, 22};
+    ASSERT_EQ(a > b, true);
 }
 
-TEST(EqualityTest, LessThan){
-    Date a {2020,Month::jan,10};
-    Date b {2020,Month::jun,22};
-    ASSERT_EQ(a<b,true);
+TEST(EqualityTest, LessThan)
+{
+    Date a{2020, Month::jan, 10};
+    Date b{2020, Month::jun, 22};
+    ASSERT_EQ(a < b, true);
 }
 
-TEST(EqualityTest, GreaterThanOrEqualTo){
-    Date a {2030,Month::jan,10};
-    Date b {2020,Month::jun,22};
-    ASSERT_EQ(a>=b,true);
+TEST(EqualityTest, GreaterThanOrEqualTo)
+{
+    Date a{2030, Month::jan, 10};
+    Date b{2020, Month::jun, 22};
+    ASSERT_EQ(a >= b, true);
 
-    Date c {2010,Month::jan,10};
-    Date d {2010,Month::jan,10};
-    ASSERT_EQ(c>=d,true);
-    ASSERT_EQ(d>=c,true);
+    Date c{2010, Month::jan, 10};
+    Date d{2010, Month::jan, 10};
+    ASSERT_EQ(c >= d, true);
+    ASSERT_EQ(d >= c, true);
 }
 
-TEST(EqualityTest, LessThanOrEqualTo){
-    Date a {2020,Month::jan,10};
-    Date b {2020,Month::jun,22};
-    ASSERT_EQ(a<=b,true);
+TEST(EqualityTest, LessThanOrEqualTo)
+{
+    Date a{2020, Month::jan, 10};
+    Date b{2020, Month::jun, 22};
+    ASSERT_EQ(a <= b, true);
 
-    Date c {2010,Month::jan,10};
-    Date d {2010,Month::jan,10};
-    ASSERT_EQ(c<=d,true);
-    ASSERT_EQ(d<=c,true);
+    Date c{2010, Month::jan, 10};
+    Date d{2010, Month::jan, 10};
+    ASSERT_EQ(c <= d, true);
+    ASSERT_EQ(d <= c, true);
 }
 
 int main(int argc, char** argv)
