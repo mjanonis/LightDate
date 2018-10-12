@@ -1,6 +1,8 @@
 #include "LightDate.hpp"
 #include "gtest/gtest.h"
 
+// Constructor tests
+
 TEST(ConstructorTest, ConstructorCreatesValidDate)
 {
     Date test{2018, Month::jan, 1};
@@ -19,9 +21,62 @@ TEST(ValidDateTest, InvalidDateThrowsException)
         ASSERT_EQ(e.what(), std::string("Invalid date constructed: 2018-2-29"));
     }
     catch (...) {
-        FAIL() << "Expected std::runtime_exception";
+        FAIL() << "Expected std::runtime_error";
     }
 }
+
+// Setter tests
+
+TEST(SetterTest, SetYearSetsAValidDate)
+{
+    Date test{2010, Month::jan, 1};
+    test.setYear(2000);
+    ASSERT_EQ(test.getYear(), 2000);
+}
+
+TEST(SetterTest, SetMonthSetsAValidDate)
+{
+    Date test{2010, Month::jan, 1};
+    test.setMonth(Month::mar);
+    ASSERT_EQ(test.getMonth(), Month::mar);
+}
+
+TEST(SetterTest, SetMonthThrowsExceptionOnInvaldDate)
+{
+    Date test{2004, Month::feb, 29};
+    try {
+        test.setMonth(Month::mar);
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("Invalid month set"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
+}
+
+TEST(SetterTest, SetDaySetsAValidDay)
+{
+    Date test{2010, Month::jan, 1};
+    test.setDay(20);
+    ASSERT_EQ(test.getDay(), 20);
+}
+
+TEST(SetterTest, SetDayThrowsExceptionOnInvalidDate)
+{
+    Date test{2010, Month::jan, 1};
+    try {
+        test.setDay(50);
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("Invalid day set"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
+}
+
+// Conversion tests
 
 TEST(ConversionTest, CorrectConversionFromTm)
 {
@@ -55,6 +110,8 @@ TEST(ConversionTest, CorrectConversionFromTmNoWeekday)
     ASSERT_EQ(conv.getDay(), 15);
     ASSERT_EQ(conv.getWeekday(), Weekday::tue);
 }
+
+// Increment tests
 
 TEST(PostIncrementTest, AddsOneDay)
 {
@@ -113,8 +170,6 @@ TEST(PreIncrementTest, CorrectlyHandlesEndOfYearDates)
     ASSERT_EQ(test.getDay(), 1);
     ASSERT_EQ(test.getWeekday(), Weekday::mon);
 }
-
-
 
 int main(int argc, char** argv)
 {
