@@ -289,6 +289,16 @@ TEST(EqualityTest, LessThanOrEqualTo)
     ASSERT_EQ(d <= c, true);
 }
 
+TEST(DateDifference, GetsDifferenceBetweenDates)
+{
+    Date a{2010, Month::jan, 1};
+    Date b{2010, Month::jan, 2};
+    ASSERT_EQ(b - a, 1);
+
+    Date c{2011, Month::jan, 1};
+    ASSERT_EQ(c - a, 365);
+}
+
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
