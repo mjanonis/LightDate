@@ -25,6 +25,32 @@ TEST(ValidDateTest, InvalidDateThrowsException)
     }
 }
 
+TEST(ValidDateTest, NegativeDayThrowsException)
+{
+    try {
+        Date invalid{2018, Month::jan, -1};
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("Invalid date constructed: 2018-1--1"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
+}
+
+TEST(ValidDateTest, NegativeYearThrowsException)
+{
+    try {
+        Date invalid{-1, Month::jan, 1};
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("Invalid date constructed: -1-1-1"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
+}
+
 // Setter tests
 
 TEST(SetterTest, SetYearSetsAValidDate)
