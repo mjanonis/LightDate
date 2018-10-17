@@ -51,6 +51,11 @@ TEST(ValidDateTest, NegativeYearThrowsException)
     }
 }
 
+TEST(ValidDateTest, Day29ValidInFebruaryIfLeapYear)
+{
+    Date{2004, Month::feb, 29};
+}
+
 // Setter tests
 
 TEST(SetterTest, SetYearSetsAValidDate)
@@ -58,6 +63,20 @@ TEST(SetterTest, SetYearSetsAValidDate)
     Date test{2010, Month::jan, 1};
     test.setYear(2000);
     ASSERT_EQ(test.getYear(), 2000);
+}
+
+TEST(SetterTest, SetYearThrowsExceptionOnInvalidDate)
+{
+    Date test{2010, Month::jan, 1};
+    try {
+        test.setYear(-10);
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("Invalid year set"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
 }
 
 TEST(SetterTest, SetMonthSetsAValidDate)
@@ -69,9 +88,9 @@ TEST(SetterTest, SetMonthSetsAValidDate)
 
 TEST(SetterTest, SetMonthThrowsExceptionOnInvaldDate)
 {
-    Date test{2004, Month::feb, 29};
+    Date test{2004, Month::mar, 31};
     try {
-        test.setMonth(Month::mar);
+        test.setMonth(Month::apr);
     }
     catch (std::runtime_error& e) {
         ASSERT_EQ(e.what(), std::string("Invalid month set"));
@@ -152,7 +171,6 @@ TEST(ConversionTest, InvalidTmDateFails)
     catch (...) {
         FAIL() << "Expected std::runtime_error";
     }
-    
 }
 
 TEST(ConversionTest, CorrectConversionFromTmNoWeekday)
