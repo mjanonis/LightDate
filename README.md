@@ -32,7 +32,7 @@ operator<< outputs the date in accordance with the ISO 8601 standard </br>
 
 ## Tests
 
-Tests require the Google Test framework
+Tests require the Google Test framework </br>
 Test coverage: 100% (LightDate.hpp.gcov)
 
 
