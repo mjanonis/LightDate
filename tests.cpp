@@ -119,6 +119,40 @@ TEST(ConversionTest, CorrectConversionFromTm)
     ASSERT_EQ(conv.getMonth(), Month::feb);
     ASSERT_EQ(conv.getDay(), 15);
     ASSERT_EQ(conv.getWeekday(), Weekday::tue);
+
+    // test_tm2 represents 2000-05-07
+    tm test_tm2;
+    test_tm2.tm_year = 100;
+    test_tm2.tm_mon = 4;
+    test_tm2.tm_mday = 7;
+    test_tm2.tm_wday = 0;
+
+    Date conv2(test_tm2);
+
+    ASSERT_EQ(conv2.getYear(), 2000);
+    ASSERT_EQ(conv2.getMonth(), Month::may);
+    ASSERT_EQ(conv2.getDay(), 7);
+    ASSERT_EQ(conv2.getWeekday(), Weekday::sun);
+}
+
+TEST(ConversionTest, InvalidTmDateFails)
+{
+    try {
+        tm test_tm;
+        test_tm.tm_year = 1000;
+        test_tm.tm_mon = 10;
+        test_tm.tm_mday = 31;
+        test_tm.tm_wday = 6;
+
+        Date conv(test_tm);
+    }
+    catch (std::runtime_error& e) {
+        ASSERT_EQ(e.what(), std::string("tm date invalid"));
+    }
+    catch (...) {
+        FAIL() << "Expected std::runtime_error";
+    }
+    
 }
 
 TEST(ConversionTest, CorrectConversionFromTmNoWeekday)
