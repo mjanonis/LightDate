@@ -6,4 +6,5 @@ runTests
 cmake_install.cmake
 Makefile
 CMakeCache.txt
-coverage_reports
+coverage_reports/*
+!coverage_reports/LightDate.hpp.gcov
