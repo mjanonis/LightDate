@@ -94,10 +94,10 @@ class Date {
     inline void setMonth(Month m);
     inline void setDay(int d);
 
-    inline Date operator++(int);
+    inline const Date operator++(int);
     inline Date& operator++();
 
-    inline Date operator--(int);
+    inline const Date operator--(int);
     inline Date& operator--();
 
     inline Date& operator-=(const int& rhs);
@@ -210,7 +210,7 @@ inline bool operator>=(const Date& lhs, const Date& rhs)
     return !operator<(lhs, rhs);
 }
 
-Date Date::operator--(int)
+const Date Date::operator--(int)
 {
     Date orig(*this);
     operator--();
@@ -223,7 +223,7 @@ Date& Date::operator--()
     return *this;
 }
 
-Date Date::operator++(int)
+const Date Date::operator++(int)
 {
     Date orig(*this);
     operator++();
