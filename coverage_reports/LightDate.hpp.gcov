@@ -1,9 +1,8 @@
         -:    0:Source:/home/martynas/Documents/GitHub/LightDate/LightDate.hpp
         -:    0:Graph:../CMakeFiles/runTests.dir/tests.gcno
         -:    0:Data:../CMakeFiles/runTests.dir/tests.gcda
-        -:    0:Runs:4
+        -:    0:Runs:1
         -:    0:Programs:1
-        -:    0:Source is newer than graph
         -:    1:#ifndef LIGHTDATE_HPP
         -:    2:#define LIGHTDATE_HPP
         -:    3:
@@ -22,20 +21,20 @@
         -:   16:
         -:   17:class Date {
         -:   18:  public:
-      168:   19:    Date(int y, Month m, int d)
-      168:   20:    {
-      168:   21:        if (validDate(y, m, d)) {
-      156:   22:            year = y;
-      156:   23:            month = m;
-      156:   24:            day = d;
-      156:   25:            wkday = calculateWeekday(y, m, d);
+       42:   19:    Date(int y, Month m, int d)
+       42:   20:    {
+       42:   21:        if (validDate(y, m, d)) {
+       39:   22:            year = y;
+       39:   23:            month = m;
+       39:   24:            day = d;
+       39:   25:            wkday = calculateWeekday(y, m, d);
         -:   26:        }
         -:   27:        else {
         -:   28:            throw std::runtime_error(
-       24:   29:                "Invalid date constructed: " + std::to_string(y) + "-" +
-       36:   30:                std::to_string(m) + "-" + std::to_string(d));
+        6:   29:                "Invalid date constructed: " + std::to_string(y) + "-" +
+        9:   30:                std::to_string(m) + "-" + std::to_string(d));
         -:   31:        }
-      156:   32:    }
+       39:   32:    }
         -:   33:    explicit Date(std::chrono::time_point<std::chrono::system_clock> n)
         -:   34:    {
         -:   35:        auto now = std::chrono::system_clock::to_time_t(n);
@@ -51,29 +50,29 @@
         -:   45:        }
         -:   46:    }
         -:   47:
-       40:   48:    explicit Date(tm t)
-       40:   49:    {
-       40:   50:        if (validDate(t.tm_year + 1900, static_cast<Month>(t.tm_mon + 1),
+       10:   48:    explicit Date(tm t)
+       10:   49:    {
+       10:   50:        if (validDate(t.tm_year + 1900, static_cast<Month>(t.tm_mon + 1),
         -:   51:                      t.tm_mday)) {
-       36:   52:            year = t.tm_year + 1900;
-       36:   53:            month = static_cast<Month>(t.tm_mon + 1);
-       36:   54:            day = t.tm_mday;
-       36:   55:            if (t.tm_wday >= 0 && t.tm_wday <= 6) {
-       64:   56:                if (t.tm_wday == 0) {
-        4:   57:                    wkday = Weekday::sun;
+        9:   52:            year = t.tm_year + 1900;
+        9:   53:            month = static_cast<Month>(t.tm_mon + 1);
+        9:   54:            day = t.tm_mday;
+        9:   55:            if (t.tm_wday >= 0 && t.tm_wday <= 6) {
+       16:   56:                if (t.tm_wday == 0) {
+        1:   57:                    wkday = Weekday::sun;
         -:   58:                }
         -:   59:                else {
-       28:   60:                    wkday = static_cast<Weekday>(t.tm_wday);
+        7:   60:                    wkday = static_cast<Weekday>(t.tm_wday);
         -:   61:                }
         -:   62:            }
         -:   63:            else {
-        4:   64:                wkday = calculateWeekday(year, month, day);
+        1:   64:                wkday = calculateWeekday(year, month, day);
         -:   65:            }
         -:   66:        }
         -:   67:        else {
-        4:   68:            throw std::runtime_error("tm date invalid");
+        1:   68:            throw std::runtime_error("tm date invalid");
         -:   69:        }
-       36:   70:    }
+        9:   70:    }
         -:   71:
         -:   72:    explicit Date(time_t t)
         -:   73:    {
@@ -91,10 +90,10 @@
         -:   85:
         -:   86:    inline explicit operator tm() const;
         -:   87:
-       84:   88:    constexpr inline int getYear() const noexcept { return year; }
-       76:   89:    constexpr inline Month getMonth() const noexcept { return month; }
-       76:   90:    constexpr inline int getDay() const noexcept { return day; }
-       56:   91:    constexpr inline Weekday getWeekday() const noexcept { return wkday; }
+       21:   88:    constexpr inline int getYear() const noexcept { return year; }
+       19:   89:    constexpr inline Month getMonth() const noexcept { return month; }
+       19:   90:    constexpr inline int getDay() const noexcept { return day; }
+       14:   91:    constexpr inline Weekday getWeekday() const noexcept { return wkday; }
         -:   92:
         -:   93:    inline void setYear(int y);
         -:   94:    inline void setMonth(Month m);
@@ -122,27 +121,27 @@
         -:  116:    inline Weekday calculateWeekday(int y, Month m, int d);
         -:  117:};
         -:  118:
-      160:  119:Weekday Date::calculateWeekday(int y, Month m, int d)
+       40:  119:Weekday Date::calculateWeekday(int y, Month m, int d)
         -:  120:{
         -:  121:    // calculate weekday using Michael Keith's and Tom Craver's expr
         -:  122:    // and make it so Monday = 1 ... Sunday = 7
-      160:  123:    int wday = (d += m < 3 ? y-- : y - 2,
-      160:  124:                23 * m / 9 + d + 4 + y / 4 - y / 100 + y / 400) %
-      160:  125:               7;
-      160:  126:    if (wday == 0) {
-       44:  127:        return Weekday::sun;
+       40:  123:    int wday = (d += m < 3 ? y-- : y - 2,
+       40:  124:                23 * m / 9 + d + 4 + y / 4 - y / 100 + y / 400) %
+       40:  125:               7;
+       40:  126:    if (wday == 0) {
+       11:  127:        return Weekday::sun;
         -:  128:    }
-      116:  129:    return static_cast<Weekday>(wday);
+       29:  129:    return static_cast<Weekday>(wday);
         -:  130:}
         -:  131:
-       12:  132:Date& Date::operator+=(const int& rhs)
+        3:  132:Date& Date::operator+=(const int& rhs)
         -:  133:{
-       12:  134:    auto tm_date_lhs = tm(*this);
-       12:  135:    auto date_lhs = mktime(&tm_date_lhs);
-       12:  136:    date_lhs += rhs * 86400;
-       12:  137:    tm_date_lhs = *localtime(&date_lhs);
-       12:  138:    *this = Date(tm_date_lhs);
-       12:  139:    return *this;
+        3:  134:    auto tm_date_lhs = tm(*this);
+        3:  135:    auto date_lhs = mktime(&tm_date_lhs);
+        3:  136:    date_lhs += rhs * 86400;
+        3:  137:    tm_date_lhs = *localtime(&date_lhs);
+        3:  138:    *this = Date(tm_date_lhs);
+        3:  139:    return *this;
         -:  140:}
         -:  141:
         -:  142:inline Date operator+(Date lhs, const int& rhs)
@@ -151,14 +150,14 @@
         -:  145:    return lhs;
         -:  146:}
         -:  147:
-       12:  148:Date& Date::operator-=(const int& rhs)
+        3:  148:Date& Date::operator-=(const int& rhs)
         -:  149:{
-       12:  150:    auto tm_date_lhs = tm(*this);
-       12:  151:    auto date_lhs = mktime(&tm_date_lhs);
-       12:  152:    date_lhs -= rhs * 86400;
-       12:  153:    tm_date_lhs = *localtime(&date_lhs);
-       12:  154:    *this = Date(tm_date_lhs);
-       12:  155:    return *this;
+        3:  150:    auto tm_date_lhs = tm(*this);
+        3:  151:    auto date_lhs = mktime(&tm_date_lhs);
+        3:  152:    date_lhs -= rhs * 86400;
+        3:  153:    tm_date_lhs = *localtime(&date_lhs);
+        3:  154:    *this = Date(tm_date_lhs);
+        3:  155:    return *this;
         -:  156:}
         -:  157:
         -:  158:inline Date operator-(Date lhs, const int& rhs)
@@ -167,53 +166,53 @@
         -:  161:    return lhs;
         -:  162:}
         -:  163:// returns the days between two dates
-       40:  164:inline int operator-(const Date& lhs, const Date& rhs)
+       10:  164:inline int operator-(const Date& lhs, const Date& rhs)
         -:  165:{
-       40:  166:    auto tm_date_lhs = tm(lhs);
-       40:  167:    auto tm_date_rhs = tm(rhs);
-       40:  168:    auto date_lhs = mktime(&tm_date_lhs);
-       40:  169:    auto date_rhs = mktime(&tm_date_rhs);
-       40:  170:    return (date_lhs - date_rhs) / 86400;
+       10:  166:    auto tm_date_lhs = tm(lhs);
+       10:  167:    auto tm_date_rhs = tm(rhs);
+       10:  168:    auto date_lhs = mktime(&tm_date_lhs);
+       10:  169:    auto date_rhs = mktime(&tm_date_rhs);
+       10:  170:    return (date_lhs - date_rhs) / 86400;
         -:  171:}
         -:  172:
-      104:  173:Date::operator tm() const
+       26:  173:Date::operator tm() const
         -:  174:{
-      104:  175:    tm conv{};
-      104:  176:    conv.tm_year = year - 1900;
-      104:  177:    conv.tm_mon = month - 1;
-      104:  178:    conv.tm_mday = day;
-      104:  179:    conv.tm_wday = wkday % 7;
+       26:  175:    tm conv{};
+       26:  176:    conv.tm_year = year - 1900;
+       26:  177:    conv.tm_mon = month - 1;
+       26:  178:    conv.tm_mday = day;
+       26:  179:    conv.tm_wday = wkday % 7;
         -:  180:
-      104:  181:    conv.tm_sec = 0;
-      104:  182:    conv.tm_min = 0;
-      104:  183:    conv.tm_hour = 0;
-      104:  184:    return conv;
+       26:  181:    conv.tm_sec = 0;
+       26:  182:    conv.tm_min = 0;
+       26:  183:    conv.tm_hour = 0;
+       26:  184:    return conv;
         -:  185:}
         -:  186:
-        8:  187:inline bool operator==(const Date& lhs, const Date& rhs)
+        2:  187:inline bool operator==(const Date& lhs, const Date& rhs)
         -:  188:{
-        8:  189:    return (lhs.getYear() == rhs.getYear() &&
-        8:  190:            lhs.getMonth() == rhs.getMonth() && lhs.getDay() == rhs.getDay());
+        2:  189:    return (lhs.getYear() == rhs.getYear() &&
+        2:  190:            lhs.getMonth() == rhs.getMonth() && lhs.getDay() == rhs.getDay());
         -:  191:}
-        4:  192:inline bool operator!=(const Date& lhs, const Date& rhs)
+        1:  192:inline bool operator!=(const Date& lhs, const Date& rhs)
         -:  193:{
-        4:  194:    return !operator==(lhs, rhs);
+        1:  194:    return !operator==(lhs, rhs);
         -:  195:}
-       32:  196:inline bool operator<(const Date& lhs, const Date& rhs)
+        8:  196:inline bool operator<(const Date& lhs, const Date& rhs)
         -:  197:{
-       32:  198:    return ((lhs - rhs) < 0);
+        8:  198:    return ((lhs - rhs) < 0);
         -:  199:}
-       16:  200:inline bool operator>(const Date& lhs, const Date& rhs)
+        4:  200:inline bool operator>(const Date& lhs, const Date& rhs)
         -:  201:{
-       16:  202:    return operator<(rhs, lhs);
+        4:  202:    return operator<(rhs, lhs);
         -:  203:}
-       12:  204:inline bool operator<=(const Date& lhs, const Date& rhs)
+        3:  204:inline bool operator<=(const Date& lhs, const Date& rhs)
         -:  205:{
-       12:  206:    return !operator>(lhs, rhs);
+        3:  206:    return !operator>(lhs, rhs);
         -:  207:}
-       12:  208:inline bool operator>=(const Date& lhs, const Date& rhs)
+        3:  208:inline bool operator>=(const Date& lhs, const Date& rhs)
         -:  209:{
-       12:  210:    return !operator<(lhs, rhs);
+        3:  210:    return !operator<(lhs, rhs);
         -:  211:}
         -:  212:
         -:  213:const Date Date::operator--(int)
@@ -229,29 +228,29 @@
         -:  223:    return *this;
         -:  224:}
         -:  225:
-        8:  226:const Date Date::operator++(int)
+        2:  226:const Date Date::operator++(int)
         -:  227:{
-        8:  228:    Date orig(*this);
-        8:  229:    operator++();
-        8:  230:    return orig;
+        2:  228:    Date orig(*this);
+        2:  229:    operator++();
+        2:  230:    return orig;
         -:  231:}
         -:  232:
-       24:  233:Date& Date::operator++()
+        6:  233:Date& Date::operator++()
         -:  234:{
-       24:  235:    if (validDate(year, month, day + 1)) {
-        8:  236:        day++;
+        6:  235:    if (validDate(year, month, day + 1)) {
+        2:  236:        day++;
         -:  237:    }
-       16:  238:    else if (validDate(year, static_cast<Month>(month + 1), 1)) {
-        8:  239:        day = 1;
-        8:  240:        month = static_cast<Month>(month + 1);
+        4:  238:    else if (validDate(year, static_cast<Month>(month + 1), 1)) {
+        2:  239:        day = 1;
+        2:  240:        month = static_cast<Month>(month + 1);
         -:  241:    }
-        8:  242:    else if (validDate(year + 1, Month::jan, 1)) {
-        8:  243:        day = 1;
-        8:  244:        month = Month::jan;
-        8:  245:        ++year;
+        2:  242:    else if (validDate(year + 1, Month::jan, 1)) {
+        2:  243:        day = 1;
+        2:  244:        month = Month::jan;
+        2:  245:        ++year;
         -:  246:    }
-       24:  247:    wkday = static_cast<Weekday>(wkday % 7 + 1);
-       24:  248:    return *this;
+        6:  247:    wkday = static_cast<Weekday>(wkday % 7 + 1);
+        6:  248:    return *this;
         -:  249:}
         -:  250:
         -:  251:inline std::ostream& operator<<(std::ostream& os, const Date& dd)
@@ -261,65 +260,65 @@
         -:  255:              << dd.getDay();
         -:  256:}
         -:  257:
-       40:  258:bool Date::leapYear(int y)
+       10:  258:bool Date::leapYear(int y)
         -:  259:{
-       40:  260:    return (y % 4 == 0 && y % 100 != 0) || y % 400 == 0;
+       10:  260:    return (y % 4 == 0 && y % 100 != 0) || y % 400 == 0;
         -:  261:}
         -:  262:
-      280:  263:bool Date::validDate(int y, Month m, int d)
+       70:  263:bool Date::validDate(int y, Month m, int d)
         -:  264:{
-      280:  265:    if (y < 0) {
-        8:  266:        return false;
+       70:  265:    if (y < 0) {
+        2:  266:        return false;
         -:  267:    }
-      272:  268:    if (m >= Month::jan && m <= Month::dec) {
-      264:  269:        if ((d >= 1 && d <= 31) &&
-      116:  270:            (m == Month::jan || m == Month::mar || m == Month::may ||
-      104:  271:             m == Month::jul || m == Month::aug || m == Month::oct ||
+       68:  268:    if (m >= Month::jan && m <= Month::dec) {
+       66:  269:        if ((d >= 1 && d <= 31) &&
+       29:  270:            (m == Month::jan || m == Month::mar || m == Month::may ||
+       26:  271:             m == Month::jul || m == Month::aug || m == Month::oct ||
         -:  272:             m == Month::dec)) {
-      168:  273:            return true;
+       42:  273:            return true;
         -:  274:        }
-       96:  275:        if ((d >= 1 && d <= 30) && (m == Month::apr || m == Month::jun ||
-       32:  276:                                    m == Month::sep || m == Month::nov)) {
-       40:  277:            return true;
+       24:  275:        if ((d >= 1 && d <= 30) && (m == Month::apr || m == Month::jun ||
+        8:  276:                                    m == Month::sep || m == Month::nov)) {
+       10:  277:            return true;
         -:  278:        }
-       56:  279:        if (d >= 1 && d <= 28 && m == Month::feb) {
-       16:  280:            return true;
+       14:  279:        if (d >= 1 && d <= 28 && m == Month::feb) {
+        4:  280:            return true;
         -:  281:        }
-       40:  282:        if (leapYear(y) && m == Month::feb && d == 29) {
-        4:  283:            return true;
+       10:  282:        if (leapYear(y) && m == Month::feb && d == 29) {
+        1:  283:            return true;
         -:  284:        }
         -:  285:    }
-       44:  286:    return false;
+       11:  286:    return false;
         -:  287:}
         -:  288:
-        8:  289:void Date::setYear(int y)
+        2:  289:void Date::setYear(int y)
         -:  290:{
-        8:  291:    if (validDate(y, month, day)) {
-        4:  292:        year = y;
+        2:  291:    if (validDate(y, month, day)) {
+        1:  292:        year = y;
         -:  293:    }
         -:  294:    else {
-        4:  295:        throw std::runtime_error("Invalid year set");
+        1:  295:        throw std::runtime_error("Invalid year set");
         -:  296:    }
-        4:  297:}
+        1:  297:}
         -:  298:
-        8:  299:void Date::setMonth(Month m)
+        2:  299:void Date::setMonth(Month m)
         -:  300:{
-        8:  301:    if (validDate(year, m, day)) {
-        4:  302:        month = m;
+        2:  301:    if (validDate(year, m, day)) {
+        1:  302:        month = m;
         -:  303:    }
         -:  304:    else {
-        4:  305:        throw std::runtime_error("Invalid month set");
+        1:  305:        throw std::runtime_error("Invalid month set");
         -:  306:    }
-        4:  307:}
+        1:  307:}
         -:  308:
-        8:  309:void Date::setDay(int d)
+        2:  309:void Date::setDay(int d)
         -:  310:{
-        8:  311:    if (validDate(year, month, d)) {
-        4:  312:        day = d;
+        2:  311:    if (validDate(year, month, d)) {
+        1:  312:        day = d;
         -:  313:    }
         -:  314:    else {
-        4:  315:        throw std::runtime_error("Invalid day set");
+        1:  315:        throw std::runtime_error("Invalid day set");
         -:  316:    }
-        4:  317:}
+        1:  317:}
         -:  318:
         -:  319:#endif
