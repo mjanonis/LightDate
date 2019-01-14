@@ -105,6 +105,13 @@ class Date {
 
     static inline Date today() { return Date(time(0)); }
 
+    friend inline std::ostream& operator<<(std::ostream& os, const Date& dd)
+    {
+        return os << std::setw(4) << std::setfill('0') << dd.getYear() << "-"
+                  << std::setw(2) << dd.getMonth() << "-" << std::setw(2)
+                  << dd.getDay();
+    }
+
   private:
     int year;
     Month month;
@@ -246,13 +253,6 @@ Date& Date::operator++()
     }
     wkday = static_cast<Weekday>(wkday % 7 + 1);
     return *this;
-}
-
-inline std::ostream& operator<<(std::ostream& os, const Date& dd)
-{
-    return os << std::setw(4) << std::setfill('0') << dd.getYear() << "-"
-              << std::setw(2) << dd.getMonth() << "-" << std::setw(2)
-              << dd.getDay();
 }
 
 bool Date::leapYear(int y)
